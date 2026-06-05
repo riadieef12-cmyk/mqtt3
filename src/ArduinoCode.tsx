@@ -175,25 +175,25 @@ export function ArduinoCode() {
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-8">
-      <div className="bg-slate-900 rounded-2xl overflow-hidden shadow-xl border border-slate-800">
-        <div className="bg-slate-950 px-6 py-4 flex justify-between items-center border-b border-slate-800">
+      <div className="bg-black rounded-lg overflow-hidden border border-[#333]">
+        <div className="bg-[#0a0a0a] px-6 py-4 flex justify-between items-center border-b border-[#333]">
           <div className="flex items-center">
-            <Code2 className="w-5 h-5 text-indigo-400 mr-2" />
-            <h2 className="text-slate-200 font-semibold text-lg">Source Code Arduino IDE</h2>
+            <Code2 className="w-4 h-4 text-white mr-2" />
+            <h2 className="text-white font-medium text-sm">Arduino / ESP8266 Source Code</h2>
           </div>
           <button
             onClick={handleCopy}
-            className="flex items-center text-sm bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg transition-colors border border-slate-700"
+            className="flex items-center text-xs bg-white text-black hover:bg-gray-200 px-3 py-1.5 rounded-md transition-colors"
           >
             {copied ? (
-              <><CheckCircle2 className="w-4 h-4 mr-2 text-emerald-400" /> Disalin</>
+              <><CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-black" /> Copied</>
             ) : (
-              <><Copy className="w-4 h-4 mr-2" /> Salin Kode</>
+              <><Copy className="w-3.5 h-3.5 mr-1.5" /> Copy Code</>
             )}
           </button>
         </div>
-        <div className="p-6 overflow-x-auto">
-          <pre className="text-sm text-slate-300 font-mono leading-relaxed">
+        <div className="p-6 overflow-x-auto bg-black">
+          <pre className="text-sm text-[#888] font-mono leading-relaxed">
             <code>{ARDUINO_CODE}</code>
           </pre>
         </div>

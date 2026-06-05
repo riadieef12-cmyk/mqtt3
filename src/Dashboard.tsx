@@ -7,23 +7,24 @@ export function Dashboard() {
   const { brokers, deviceState, sendRelayCommand, sendPatternCommand } = useMqtt();
 
   return (
-    <div className="min-h-screen bg-[#0F172A] text-slate-200 font-sans pb-12">
+    <div className="min-h-screen bg-black text-[#ededed] font-sans pb-12">
       {/* Header */}
-      <header className="border-b border-slate-800 bg-slate-900/50 flex items-center shrink-0">
-        <div className="max-w-6xl mx-auto w-full px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/20">
+      <header className="border-b border-[#333] bg-black flex items-center shrink-0">
+        <div className="max-w-6xl mx-auto w-full px-6 py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 border border-[#333] bg-[#111] rounded-full flex items-center justify-center">
               <Activity className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-lg font-bold tracking-tight">SISTEM KENDALI IOT <span className="text-indigo-400 font-medium tracking-normal">Multi-Broker</span></h1>
+              <h1 className="text-xl font-semibold tracking-tight text-white mb-1">Multi-Broker Hub</h1>
+              <p className="text-sm font-medium text-[#888]">IoT Device Controller</p>
             </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
              {brokers.map(b => (
-               <div key={b.id} className="flex items-center space-x-1 bg-slate-800/50 px-3 py-1.5 rounded-full border border-slate-700 backdrop-blur-sm shadow-sm transition-all hover:bg-slate-800 cursor-help" title={b.url}>
-                 {b.connected ? <Link2 className="w-3.5 h-3.5 text-emerald-400" /> : <Unlink className="w-3.5 h-3.5 text-rose-400" />}
-                 <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">{b.name}</span>
+               <div key={b.id} className="flex items-center space-x-2 bg-[#0a0a0a] px-3 py-1.5 rounded-md border border-[#333] transition-colors hover:bg-[#111] cursor-help" title={b.url}>
+                 <div className={`w-2 h-2 rounded-full ${b.connected ? 'bg-[#0070f3] animate-pulse' : 'bg-[#e00]'}`}></div>
+                 <span className="text-xs font-medium text-[#888]">{b.name}</span>
                </div>
              ))}
           </div>
@@ -37,29 +38,29 @@ export function Dashboard() {
           <div className="space-y-6">
             
             {/* Sensor Panel */}
-            <div className="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden">
-              <div className="p-4 border-b border-slate-800 bg-slate-800/30 flex items-center">
-                <Activity className="w-5 h-5 text-indigo-400 mr-2" />
-                <h2 className="font-semibold text-slate-300">Telemetri Sensor</h2>
+            <div className="bg-black rounded-lg border border-[#333] overflow-hidden">
+              <div className="p-4 border-b border-[#333] bg-[#0a0a0a] flex items-center">
+                <Activity className="w-4 h-4 text-[#888] mr-2" />
+                <h2 className="text-sm font-medium text-[#ededed]">Sensor Data</h2>
               </div>
-              <div className="grid grid-cols-2 divide-x divide-slate-800">
+              <div className="grid grid-cols-2 divide-x divide-[#333]">
                 <div className="p-6 flex flex-col items-center justify-center text-center">
-                  <div className="w-12 h-12 bg-slate-800 text-indigo-400 rounded-full flex items-center justify-center mb-3">
-                    <Thermometer className="w-6 h-6" />
+                  <div className="w-10 h-10 border border-[#333] bg-[#0a0a0a] text-white rounded-full flex items-center justify-center mb-3">
+                    <Thermometer className="w-4 h-4" />
                   </div>
-                  <span className="text-3xl font-bold text-slate-200 tracking-tight">
-                    {deviceState.temperature}<span className="text-lg text-indigo-500 font-normal"> °C</span>
+                  <span className="text-2xl font-semibold text-white tracking-tight">
+                    {deviceState.temperature}<span className="text-sm text-[#888] font-normal ml-1">°C</span>
                   </span>
-                  <span className="text-[10px] text-slate-500 mt-2 uppercase tracking-widest font-black">Suhu</span>
+                  <span className="text-xs text-[#888] mt-2 font-medium">Temperature</span>
                 </div>
                 <div className="p-6 flex flex-col items-center justify-center text-center">
-                  <div className="w-12 h-12 bg-slate-800 text-indigo-400 rounded-full flex items-center justify-center mb-3">
-                    <Droplets className="w-6 h-6" />
+                  <div className="w-10 h-10 border border-[#333] bg-[#0a0a0a] text-white rounded-full flex items-center justify-center mb-3">
+                    <Droplets className="w-4 h-4" />
                   </div>
-                  <span className="text-3xl font-bold text-slate-200 tracking-tight">
-                    {deviceState.humidity}<span className="text-lg text-indigo-500 font-normal">%</span>
+                  <span className="text-2xl font-semibold text-white tracking-tight">
+                    {deviceState.humidity}<span className="text-sm text-[#888] font-normal ml-1">%</span>
                   </span>
-                  <span className="text-[10px] text-slate-500 mt-2 uppercase tracking-widest font-black">Kelembapan</span>
+                  <span className="text-xs text-[#888] mt-2 font-medium">Humidity</span>
                 </div>
               </div>
             </div>
@@ -68,16 +69,16 @@ export function Dashboard() {
             <VoiceController />
 
             {/* Info Card */}
-             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 text-slate-300">
+             <div className="bg-[#0a0a0a] border border-[#333] rounded-lg p-5">
                 <div className="flex items-start">
-                   <Info className="w-5 h-5 mr-3 mt-0.5 text-indigo-400 shrink-0" />
+                   <Info className="w-4 h-4 mr-3 mt-0.5 text-[#fff] shrink-0" />
                    <div>
-                      <h4 className="font-semibold mb-1 text-sm text-slate-200">Informasi Koneksi</h4>
-                      <p className="text-xs text-slate-400 leading-relaxed mb-2">
-                        Sistem ini menggunakan arsitektur redundansi. Perintah yang dikirimkan melalui web akan disiarkan ke <strong>ketiga broker MQTT</strong> sekaligus.
+                      <h4 className="font-semibold mb-2 text-sm text-[#ededed]">System Architecture</h4>
+                      <p className="text-sm text-[#888] leading-relaxed mb-3">
+                        This system uses a highly available redundant architecture. Commands are broadcast to all configured MQTT brokers simultaneously.
                       </p>
-                      <p className="text-xs text-slate-400 leading-relaxed">
-                        Perangkat keras IoT Anda hanya perlu terhubung ke salah satu broker yang aktif untuk menerima perintah.
+                      <p className="text-sm text-[#888] leading-relaxed">
+                        Hardware nodes only require successful connection to a single broker to remain completely operational.
                       </p>
                    </div>
                 </div>
@@ -89,10 +90,10 @@ export function Dashboard() {
           <div className="lg:col-span-2 space-y-6">
             
             {/* Relays */}
-            <div className="bg-slate-900 rounded-2xl border border-slate-800 p-6">
-              <div className="flex items-center mb-6">
-                <Power className="w-5 h-5 text-slate-400 mr-2" />
-                <h2 className="font-semibold text-slate-200 text-lg">Modul Relay Aktuator</h2>
+            <div className="bg-black rounded-lg border border-[#333] p-6">
+              <div className="flex items-center mb-6 text-sm font-medium">
+                <Power className="w-4 h-4 text-[#888] mr-2" />
+                <h2 className="text-[#ededed]">Relay Channels</h2>
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -101,31 +102,34 @@ export function Dashboard() {
                   return (
                     <div 
                       key={index}
-                      className={`relative overflow-hidden rounded-xl border p-5 transition-all duration-300 ${
+                      className={`relative flex items-center justify-between rounded-lg border px-5 py-4 transition-colors ${
                         isActive 
-                          ? 'border-white/10 bg-indigo-600 shadow-lg' 
-                          : 'border-slate-800 bg-slate-900 hover:border-slate-700'
+                          ? 'border-[#fff] bg-[#0a0a0a]' 
+                          : 'border-[#333] bg-black hover:border-[#666]'
                       }`}
                     >
-                      <div className="flex justify-between items-center relative z-10 w-full">
-                        <div>
-                          <p className={`text-[10px] uppercase font-black tracking-[0.2em] mb-2 ${isActive ? 'text-indigo-200' : 'text-slate-500'}`}>
-                            Relay Channel 0{index + 1}
-                          </p>
-                          <div className={`text-2xl font-bold ${isActive ? 'text-white' : 'text-slate-300 opacity-80'}`}>
-                             {isActive ? 'ON' : 'OFF'}
-                          </div>
+                      <div>
+                        <h3 className={`text-sm font-medium ${isActive ? 'text-white' : 'text-[#ededed]'}`}>
+                          Relay {index + 1}
+                        </h3>
+                        <p className="text-xs mt-1 text-[#888]">
+                          Actuator Unit
+                        </p>
+                      </div>
+                      
+                      <div className="flex items-center gap-4">
+                        <div className={`text-xs font-bold ${isActive ? 'text-white' : 'text-[#666]'}`}>
+                           {isActive ? 'ENABLED' : 'DISABLED'}
                         </div>
-                        
                         <button
                           onClick={() => sendRelayCommand(index, !isActive)}
-                          className={`px-4 py-2 font-bold rounded-xl text-sm transition-all duration-300 shadow-sm ${
+                          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
                             isActive 
-                              ? 'bg-white text-indigo-600 hover:scale-105' 
-                              : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                              ? 'bg-white text-black hover:bg-neutral-200' 
+                              : 'bg-[#111] text-[#888] border border-[#333] hover:bg-[#222]'
                           }`}
                         >
-                          <Power className="w-5 h-5 mx-auto" />
+                          <Power className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
@@ -135,49 +139,49 @@ export function Dashboard() {
             </div>
 
             {/* Logical Routines */}
-            <div className="bg-slate-900 rounded-2xl border border-slate-800 p-6">
-               <div className="flex items-center mb-6">
-                <Settings2 className="w-5 h-5 text-slate-400 mr-2" />
-                <h2 className="font-semibold text-slate-200 text-lg">Logika Kombinasi Kendali</h2>
+            <div className="bg-black rounded-lg border border-[#333] p-6">
+               <div className="flex items-center mb-6 text-sm font-medium">
+                <Settings2 className="w-4 h-4 text-[#888] mr-2" />
+                <h2 className="text-[#ededed]">Execution Routines</h2>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                  
                  {/* Logic 1 */}
-                 <div className="border border-slate-800 bg-slate-800/10 rounded-xl p-5 hover:border-indigo-500/50 hover:bg-slate-800/30 transition-all group">
+                 <div className="border border-[#333] bg-[#0a0a0a] rounded-lg p-5 hover:border-[#666] transition-colors">
                     <div className="flex justify-between items-start mb-4">
-                       <div className="bg-indigo-900/50 p-2.5 rounded-lg text-indigo-400 group-hover:scale-110 transition-transform">
-                          <Zap className="w-5 h-5" />
+                       <div className="w-8 h-8 rounded-full border border-[#333] bg-black flex items-center justify-center">
+                          <Zap className="w-4 h-4 text-[#ededed]" />
                        </div>
                        <button 
                           onClick={() => sendPatternCommand(1)}
-                          className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors"
+                          className="bg-white hover:bg-neutral-200 text-black px-4 py-1.5 rounded-md text-xs font-semibold transition-colors"
                        >
-                          Eksekusi
+                          Execute
                        </button>
                     </div>
-                    <h3 className="font-bold text-slate-200 mb-1">Kombinasi 1: Kiri ke Kanan</h3>
-                    <p className="text-sm text-slate-400 leading-relaxed">
-                       Menyalakan relay secara berurutan dari Relay 1 hingga Relay 4 dengan jeda 500ms setiap transisi.
+                    <h3 className="font-medium text-sm text-white mb-2">Sequential Sequence</h3>
+                    <p className="text-sm text-[#888] leading-relaxed">
+                       Activates relays sequentially from 1 to 4 with a 500ms delay between transitions.
                     </p>
                  </div>
 
                  {/* Logic 2 */}
-                 <div className="border border-slate-800 bg-slate-800/10 rounded-xl p-5 hover:border-indigo-500/50 hover:bg-slate-800/30 transition-all group">
+                 <div className="border border-[#333] bg-[#0a0a0a] rounded-lg p-5 hover:border-[#666] transition-colors">
                     <div className="flex justify-between items-start mb-4">
-                       <div className="bg-indigo-900/50 p-2.5 rounded-lg text-indigo-400 group-hover:scale-110 transition-transform">
-                          <ShieldCheck className="w-5 h-5" />
+                       <div className="w-8 h-8 rounded-full border border-[#333] bg-black flex items-center justify-center">
+                          <ShieldCheck className="w-4 h-4 text-[#ededed]" />
                        </div>
                        <button 
                           onClick={() => sendPatternCommand(2)}
-                          className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors"
+                          className="bg-white hover:bg-neutral-200 text-black px-4 py-1.5 rounded-md text-xs font-semibold transition-colors"
                        >
-                          Eksekusi
+                          Execute
                        </button>
                     </div>
-                    <h3 className="font-bold text-slate-200 mb-1">Kombinasi 2: Mode Strobo</h3>
-                    <p className="text-sm text-slate-400 leading-relaxed">
-                       Kendali flip-flop bergantian antara ganjil (1, 3) dan genap (2, 4) secara cepat selama 5 detik.
+                    <h3 className="font-medium text-sm text-white mb-2">Strobe Protocol</h3>
+                    <p className="text-sm text-[#888] leading-relaxed">
+                       Rapid alternating flip-flop sequence between odd (1, 3) and even (2, 4) channels.
                     </p>
                  </div>
 

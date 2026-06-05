@@ -135,56 +135,54 @@ export function VoiceController() {
   }
 
   return (
-    <div className="bg-indigo-950/30 border-2 border-indigo-500/30 rounded-2xl p-6 relative overflow-hidden">
-      <div className="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/10 blur-[80px] rounded-full pointer-events-none"></div>
-      
-      <div className="flex items-center justify-between mb-6 relative z-10 w-full">
-        <h3 className="text-xs font-bold text-indigo-300 uppercase tracking-widest flex items-center">
-          <Volume2 className="w-4 h-4 mr-2 text-indigo-400" />
-          Kontrol Suara AI
+    <div className="bg-black border border-[#333] rounded-lg p-6 relative">
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-sm font-medium text-[#ededed] flex items-center">
+          <Volume2 className="w-4 h-4 mr-2" />
+          Voice AI Assistant
         </h3>
         
         <button
           onClick={toggleListening}
-          className={`relative flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-all duration-300 ${
+          className={`relative flex items-center justify-center w-10 h-10 rounded-full transition-colors ${
             isListening 
-              ? 'bg-red-500 hover:bg-red-600 animate-pulse text-white' 
-              : 'bg-indigo-500 hover:bg-indigo-600 text-white'
+              ? 'bg-[#e00] text-white hover:bg-red-600' 
+              : 'bg-white text-black hover:bg-gray-200'
           }`}
         >
-           {isListening ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
+           {isListening ? <Mic className="w-4 h-4" /> : <MicOff className="w-4 h-4" />}
         </button>
       </div>
 
-      <div className="bg-slate-900/80 border border-indigo-500/20 rounded-xl p-4 min-h-[100px] flex flex-col justify-center relative shadow-inner">
+      <div className="bg-[#111] border border-[#333] rounded-md p-4 min-h-[100px] flex flex-col justify-center">
          {!isListening && !transcript && (
-            <p className="text-slate-500 text-center italic text-sm">
-               Klik tombol mic untuk memulai perintah suara...
+            <p className="text-[#888] text-center text-sm">
+               Click microphone to start voice commands
             </p>
          )}
          {isListening && !transcript && (
-            <div className="flex justify-center flex-col items-center gap-2">
-               <div className="flex space-x-1">
-                 <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                 <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                 <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+            <div className="flex justify-center flex-col items-center gap-3">
+               <div className="flex space-x-1.5">
+                 <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                 <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                 <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                </div>
-               <p className="text-indigo-400 text-sm font-medium tracking-widest uppercase text-[10px]">Mendengarkan...</p>
+               <p className="text-[#888] text-xs">Listening...</p>
             </div>
          )}
          {transcript && (
-           <p className="text-indigo-200 text-center font-medium italic text-lg shadow-sm">
+           <p className="text-white text-center font-medium italic text-sm">
              "{transcript}"
            </p>
          )}
       </div>
 
-      <div className="mt-4 relative z-10">
-        <p className="text-xs text-slate-500 mb-2 font-bold uppercase tracking-widest">Contoh Perintah:</p>
+      <div className="mt-4">
+        <p className="text-xs text-[#888] mb-2 font-medium">Examples:</p>
         <div className="flex flex-wrap gap-2">
-           <span className="px-2 py-1 bg-slate-800 text-slate-300 border border-slate-700 text-xs rounded-md shadow-sm">"Nyalakan relay 1"</span>
-           <span className="px-2 py-1 bg-slate-800 text-slate-300 border border-slate-700 text-xs rounded-md shadow-sm">"Matikan relay 2"</span>
-           <span className="px-2 py-1 bg-indigo-900/50 text-indigo-300 border border-indigo-500/30 text-xs rounded-md shadow-sm">"Baca suhu"</span>
+           <span className="px-2 py-1 bg-[#111] text-[#ededed] border border-[#333] text-xs rounded-md">"Nyalakan relay 1"</span>
+           <span className="px-2 py-1 bg-[#111] text-[#ededed] border border-[#333] text-xs rounded-md">"Matikan relay 2"</span>
+           <span className="px-2 py-1 bg-[#111] text-white border border-[#666] text-xs rounded-md">"Baca suhu"</span>
         </div>
       </div>
     </div>

@@ -102,7 +102,8 @@ export function Dashboard() {
                   return (
                     <div 
                       key={index}
-                      className={`relative flex items-center justify-between rounded-lg border px-5 py-4 transition-colors ${
+                      onClick={() => sendRelayCommand(index, !isActive)}
+                      className={`relative flex items-center justify-between rounded-lg border px-5 py-4 transition-colors cursor-pointer group ${
                         isActive 
                           ? 'border-[#fff] bg-[#0a0a0a]' 
                           : 'border-[#333] bg-black hover:border-[#666]'
@@ -122,11 +123,10 @@ export function Dashboard() {
                            {isActive ? 'ENABLED' : 'DISABLED'}
                         </div>
                         <button
-                          onClick={() => sendRelayCommand(index, !isActive)}
                           className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
                             isActive 
-                              ? 'bg-white text-black hover:bg-neutral-200' 
-                              : 'bg-[#111] text-[#888] border border-[#333] hover:bg-[#222]'
+                              ? 'bg-white text-black group-hover:scale-105' 
+                              : 'bg-[#111] text-[#888] border border-[#333] group-hover:bg-[#222]'
                           }`}
                         >
                           <Power className="w-4 h-4" />

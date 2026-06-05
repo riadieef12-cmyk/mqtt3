@@ -82,14 +82,28 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println(message);
 
   if (String(topic) == topic_relay_cmd) {
-    // Parsing JSON sederhana secara manual atau gunakan ArduinoJson
-    // Format JSON array: [true,false,true,false]
-    if(message.indexOf("true") >= 0 || message.indexOf("false") >= 0) {
-      // Logic parsing array boolean sederhana
-       int relayState[4] = {0,0,0,0};
-       // Note: Gunakan ArduinoJson untuk parsing yang aman di production
-       // Ini adalah ilustrasi eksekusi:
-       // for(int i=0; i<4; i++) { digitalWrite(relayPins[i], relayState[i] ? LOW : HIGH); }
+    // Parsing manual array boolean dari web: [true,false,true,false]
+    int relayIndex = 0;
+    int searchPos = 0;
+    
+    while (relayIndex < 4 && searchPos < message.length()) {
+      int nextTrue = message.indexOf("true", searchPos);
+      int nextFalse = message.indexOf("false", searchPos);
+      
+      if (nextTrue == -1 && nextFalse == -1) break; // Tidak ada lagi data
+      
+      // Jika "true" ditemukan lebih dulu
+      if (nextTrue != -1 && (nextFalse == -1 || nextTrue < nextFalse)) {
+         digitalWrite(relayPins[relayIndex], LOW); // Asumsi Aktif LOW
+         searchPos = nextTrue + 4;
+         relayIndex++;
+      } 
+      // Jika "false" ditemukan lebih dulu
+      else if (nextFalse != -1 && (nextTrue == -1 || nextFalse < nextTrue)) {
+         digitalWrite(relayPins[relayIndex], HIGH); // Asumsi Mati HIGH
+         searchPos = nextFalse + 5;
+         relayIndex++;
+      }
     }
   } 
   else if (String(topic) == topic_pattern_cmd) {
